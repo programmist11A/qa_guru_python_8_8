@@ -65,7 +65,7 @@ class Cart:
         Если remove_count больше, чем количество продуктов в позиции, то удаляется вся позиция
         """
         if product in self.products:
-            if remove_count is None or remove_count > self.products[product]:
+            if remove_count is None or remove_count >= self.products[product]:
                 del self.products[product]
             else:
                 self.products[product] -= remove_count
@@ -87,7 +87,7 @@ class Cart:
         """
         for product, quantity in self.products.items():
             if not product.check_quantity(quantity):
-                raise ValueError('Недостаточно товара')
+                raise ValueError()
             else:
                 product.buy(quantity)
         self.clear()
