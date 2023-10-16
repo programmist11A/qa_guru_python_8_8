@@ -10,9 +10,11 @@ from models import Product, Cart
 def product():
     return Product("book", 100, "This is a book", 1000)
 
+
 @pytest.fixture
 def cart():
     return Cart()
+
 
 class TestProducts:
     """
@@ -47,7 +49,8 @@ class TestCart:
         На некоторые методы у вас может быть несколько тестов.
         Например, негативные тесты, ожидающие ошибку (используйте pytest.raises, чтобы проверить это)
     """
-    def test_add_in_cart(self, cart,  product):
+
+    def test_add_in_cart(self, cart, product):
         cart.add_product(product, 1)
         assert cart.products[product] == 1
         cart.add_product(product, 99)
@@ -70,13 +73,11 @@ class TestCart:
 
         assert product not in cart.products
 
-
     def test_get_total_price(self, cart, product):
         cart.add_product(product, 22)
         total_price = cart.get_total_price()
 
         assert total_price == 2200.0
-
 
     def test_buy(self, cart, product):
         product.quantity = 10
